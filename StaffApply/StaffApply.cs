@@ -17,7 +17,7 @@ namespace StaffApply
         public override string Name { get { return "StaffApply"; } }
         public override string Author { get { return "Ryozuki"; } }
         public override string Description { get { return "A plugin to let users apply to a staff rank directly on terraria"; } }
-        public override Version Version { get { return new Version(1, 0, 0); } }
+        public override Version Version { get { return new Version(1, 0, 1); } }
         #endregion
 
         public ConfigFile Config = new ConfigFile();
@@ -44,13 +44,7 @@ namespace StaffApply
 
         public string getRanks()
         {
-            StringBuilder textArgs = new StringBuilder("");
-            foreach (string rank in Config.AppRanks)
-            {
-                textArgs.Append(rank);
-                textArgs.Append(" ");
-            }
-            return textArgs.ToString();
+            return String.Join(" ", Config.AppRanks);
         }
         
         void OnInitialize(EventArgs args)
