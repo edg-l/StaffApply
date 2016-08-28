@@ -44,12 +44,13 @@ namespace StaffApply
 
         public string getRanks()
         {
-            string textArgs = "";
+            StringBuilder textArgs = new StringBuilder("");
             foreach (string rank in Config.AppRanks)
             {
-                textArgs += rank + " ";
+                textArgs.Append(rank);
+                textArgs.Append(" ");
             }
-            return textArgs;
+            return textArgs.ToString();
         }
         
         void OnInitialize(EventArgs args)
@@ -58,15 +59,15 @@ namespace StaffApply
 
             Directory.CreateDirectory("StaffApplications");
 
-            Commands.ChatCommands.Add(new Command("staffapply.apply", staffapply, "apply")
+            Commands.ChatCommands.Add(new Command("staffapply.use", staffapply, "apply")
             {
                 HelpText = "Usage: /apply (" + getRanks() + ") // Apply for one of these ranks"
             });
-            Commands.ChatCommands.Add(new Command("staffapply.apply", answer, "answer")
+            Commands.ChatCommands.Add(new Command("staffapply.use", answer, "answer")
             {
                 HelpText = "Usage: /answer <your answer> //Write down your application with this, can be used multiple times."
             });
-            Commands.ChatCommands.Add(new Command("staffapply.apply", sendApply, "sendapplication")
+            Commands.ChatCommands.Add(new Command("staffapply.use", sendApply, "sendapplication")
             {
                 HelpText = "Usage: /sendapplication // Sends the staff application"
             });
@@ -90,7 +91,7 @@ namespace StaffApply
             if (args == "help")
             {
                 e.Player.SendInfoMessage("/apply (" + getRanks() + ") // Apply for one of these ranks");
-                e.Player.SendInfoMessage("/answer <your answer> //Write down your application with this, can be used multiple times.");
+                e.Player.SendInfoMessage("/answer <your answer> // Write down your application with this, can be used multiple times.");
                 e.Player.SendInfoMessage("/sendapplication // Sends the staff application");
             }
 
