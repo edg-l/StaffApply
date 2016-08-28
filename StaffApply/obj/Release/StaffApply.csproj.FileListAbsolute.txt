@@ -1,7 +1,0 @@
-C:\Users\Edgar\Documents\Visual Studio 2015\Projects\StaffApply\StaffApply\bin\Release\StaffApply.dll
-C:\Users\Edgar\Documents\Visual Studio 2015\Projects\StaffApply\StaffApply\bin\Release\StaffApply.pdb
-C:\Users\Edgar\Documents\Visual Studio 2015\Projects\StaffApply\StaffApply\bin\Release\Newtonsoft.Json.dll
-C:\Users\Edgar\Documents\Visual Studio 2015\Projects\StaffApply\StaffApply\bin\Release\TerrariaServer.exe
-C:\Users\Edgar\Documents\Visual Studio 2015\Projects\StaffApply\StaffApply\bin\Release\TShockAPI.dll
-C:\Users\Edgar\Documents\Visual Studio 2015\Projects\StaffApply\StaffApply\obj\Release\StaffApply.dll
-C:\Users\Edgar\Documents\Visual Studio 2015\Projects\StaffApply\StaffApply\obj\Release\StaffApply.pdb
