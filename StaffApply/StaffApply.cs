@@ -123,13 +123,13 @@ namespace StaffApply
                         using (StreamWriter fs = new StreamWriter("StaffApplications/{0}.txt".SFormat(e.Player.Name), true))
                         {
                             fs.WriteLine(rank.ToUpper() + " application of {0}".SFormat(e.Player.Name));
-                            fs.WriteLine("----------------------------------------");
+                            fs.WriteLine("---------------------------------------------");
                             fs.WriteLine("--------------[Questions]---------------");
                             foreach (string question in Config.Questions)
                             {
                                 fs.WriteLine(question);
                             }
-                            fs.WriteLine("----------------------------------------");
+                            fs.WriteLine("---------------------------------------------");
                             fs.WriteLine("---------------[Answers]----------------");
                         }
                     }
