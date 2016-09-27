@@ -7,17 +7,18 @@ using Terraria;
 using TerrariaApi.Server;
 using TShockAPI;
 using Newtonsoft.Json;
+using System.Net.Mail;
 
 namespace StaffApply
 {
-    [ApiVersion(1, 23)]
+    [ApiVersion(1, 24)]
     public class StaffApply : TerrariaPlugin
     {
         #region Info
         public override string Name { get { return "StaffApply"; } }
         public override string Author { get { return "Ryozuki"; } }
         public override string Description { get { return "A plugin to let users apply to a staff rank directly on terraria"; } }
-        public override Version Version { get { return new Version(1, 0, 1); } }
+        public override Version Version { get { return new Version(1, 2, 0); } }
         #endregion
 
         public ConfigFile Config = new ConfigFile();
@@ -109,11 +110,10 @@ namespace StaffApply
                     }
                     else
                     {
-                        File.Create("StaffApplications/{0}.txt".SFormat(e.Player.Name)).Close();
+                        File.Create(String.Format("StaffApplications/{0}.txt", e.Player.Name)).Close();
 
                         e.Player.SendInfoMessage("You are applying to {0} rank...".SFormat(rank));
                         e.Player.SendInfoMessage("Please answer this questions on your application: ");
-
                         foreach (string question in Config.Questions)
                         {
                             e.Player.SendSuccessMessage(question);
@@ -122,8 +122,15 @@ namespace StaffApply
                         e.Player.SendInfoMessage("Use /sendapplication to send it");
                         using (StreamWriter fs = new StreamWriter("StaffApplications/{0}.txt".SFormat(e.Player.Name), true))
                         {
-                            fs.WriteLine(rank + " application of {0}".SFormat(e.Player.Name));
+                            fs.WriteLine(rank.ToUpper() + " application of {0}".SFormat(e.Player.Name));
                             fs.WriteLine("----------------------------------------");
+                            fs.WriteLine("--------------[Questions]---------------");
+                            foreach (string question in Config.Questions)
+                            {
+                                fs.WriteLine(question);
+                            }
+                            fs.WriteLine("----------------------------------------");
+                            fs.WriteLine("---------------[Answers]----------------");
                         }
                     }
                 }
@@ -169,7 +176,14 @@ namespace StaffApply
                 else
                 {
                     File.Move("StaffApplications/{0}.txt".SFormat(e.Player.Name), "StaffApplications/{0}-finished.txt".SFormat(e.Player.Name));
-                    e.Player.SendSuccessMessage("Staff application succesfully sent");
+                    if (Config.EnableMail)
+                    {
+                        sendAppMail(e);
+                    }
+                    else
+                    {
+                        e.Player.SendSuccessMessage("Staff application succesfully sent");
+                    }
                 }
             }
             else if(File.Exists("StaffApplications/{0}-finished.txt".SFormat(e.Player.Name)))
@@ -180,6 +194,46 @@ namespace StaffApply
             {
                 e.Player.SendErrorMessage("You have to {0}apply before executing this command", Commands.Specifier);
             }
+        }
+
+        void sendAppMail(CommandArgs e)
+        {
+            try
+            {
+                if (File.Exists("StaffApplications/{0}-finished.txt".SFormat(e.Player.Name)))
+                {
+                    string body = File.ReadAllText("StaffApplications/{0}-finished.txt".SFormat(e.Player.Name));
+
+                    var smtp = new SmtpClient
+                    {
+                        Host = "smtp.gmail.com",
+                        Port = 587,
+                        EnableSsl = true,
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        Credentials = new System.Net.NetworkCredential(Config.AdminMail, Config.AdminMailPassword),
+                        Timeout = 20000
+                    };
+
+                    var message = new MailMessage(Config.AdminMail, Config.AdminMail);
+                    var ServerName = "Terraria Server";
+                    if (!string.IsNullOrEmpty(TShock.Config.ServerName))
+                    {
+                        ServerName = TShock.Config.ServerName;
+                    }
+                    message.Subject = e.Player.Name + " Application for " + ServerName;
+                    message.Body = body;
+                    e.Player.SendInfoMessage("Sending, wait...");
+                    smtp.Send(message);
+                    e.Player.SendSuccessMessage("Staff application succesfully sent");
+                }
+            }
+            catch(SmtpException err)
+            {
+                e.Player.SendErrorMessage("Mail not configured properly, check console. Be sure to enable lesssecureapps on your gmail configuration.");
+                TShock.Log.ConsoleError(err.ToString());
+            }
+                
+            
         }
 
         #region Load Config

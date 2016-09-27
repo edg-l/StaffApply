@@ -16,6 +16,12 @@ namespace StaffApply
 
         public string[] Questions = { "Why you want to apply?", "You think you are enough mature for this rank?", "How can you help others?", "What would you do if someone breaks a rule?" };
 
+        public bool EnableMail = false;
+
+        public string AdminMail = "user@domain.tld";
+
+        public string AdminMailPassword = "password";
+
         public int minWords = 50;
 
         public static ConfigFile Read(string path)
