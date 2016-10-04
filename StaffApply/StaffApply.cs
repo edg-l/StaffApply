@@ -11,7 +11,7 @@ using System.Net.Mail;
 
 namespace StaffApply
 {
-    [ApiVersion(1, 24)]
+    [ApiVersion(1, 25)]
     public class StaffApply : TerrariaPlugin
     {
         #region Info
