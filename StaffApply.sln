@@ -1,16 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26014.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaffApply", "StaffApply\StaffApply.csproj", "{A06A240D-19A4-4C6E-8D0F-D85A87105283}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "References", "References", "{4BE8D6CC-5778-4FC1-9F74-AEEA4E516897}"
-	ProjectSection(SolutionItems) = preProject
-		StaffApply\References\Newtonsoft.Json.dll = StaffApply\References\Newtonsoft.Json.dll
-		StaffApply\References\TerrariaServer.exe = StaffApply\References\TerrariaServer.exe
-		StaffApply\References\TShockAPI.dll = StaffApply\References\TShockAPI.dll
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

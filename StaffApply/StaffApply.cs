@@ -11,14 +11,14 @@ using System.Net.Mail;
 
 namespace StaffApply
 {
-    [ApiVersion(1, 26)]
+    [ApiVersion(2, 0)]
     public class StaffApply : TerrariaPlugin
     {
         #region Info
         public override string Name { get { return "StaffApply"; } }
         public override string Author { get { return "Ryozuki"; } }
         public override string Description { get { return "A plugin to let users apply to a staff rank directly on terraria"; } }
-        public override Version Version { get { return new Version(1, 2, 0); } }
+        public override Version Version { get { return new Version(1, 2, 1); } }
         #endregion
 
         public ConfigFile Config = new ConfigFile();
