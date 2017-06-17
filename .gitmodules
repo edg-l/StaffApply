@@ -1,0 +1,3 @@
+[submodule "StaffApply/tshock-references"]
+	path = StaffApply/tshock-references
+	url = https://github.com/Ryozuki/tshock-references
